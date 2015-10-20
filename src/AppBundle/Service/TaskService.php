@@ -2,6 +2,8 @@
 
 namespace AppBundle\Service;
 
+use Doctrine\ORM\EntityManager;
+
 class TaskService
 {
     private $entityManager;
