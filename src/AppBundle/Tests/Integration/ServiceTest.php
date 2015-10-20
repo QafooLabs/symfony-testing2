@@ -59,4 +59,64 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
 
         return $task;
     }
+
+    public function testNextWeekReport()
+    {
+        $em = $this->getMockBuilder('Doctrine\ORM\EntityManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $mailer = $this->getMockBuilder('Swift_Mailer')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $templating = $this->getMockBuilder('Symfony\Component\Templating\EngineInterface')
+            ->getMockForAbstractClass();
+
+        $start = new DateTime('now');
+        $end = new DateTime('2015-10-30 12:00:00');
+
+        $includeHours = false;
+
+
+        $dql = 'dql ...';
+
+        $result = array();
+        $task1 = new \AppBundle\Entity\Task();
+        $task1->dueDate = new \DateTime();
+        $task2 = new \AppBundle\Entity\Task();
+        $task2->dueDate = new \DateTime();
+        $result[] = $task1;
+        $result[] = $task2;
+
+
+        $em->expects($this->at(0))->method('createQuery')
+            //->with($this->equalTo($dql))
+            ->will($this->returnSelf());
+        $em->expects($this->at(1))
+            ->method('setParameter')
+            ->with($this->equalTo(1), $this->equalTo($start))
+            ->will($this->returnSelf());
+        $em->expects($this->at(2))
+            ->method('setParameter')
+            ->with($this->equalTo(2), $this->equalTo($end))
+            ->will($this->returnSelf());
+        $em->expects($this->at(3))
+            ->method('getResult')
+            ->will($this->returnValue($result));
+
+        //$options = array('chart' => $chart, 'nextThreeTasks' => $nextThreeTasks)
+        $templating->expects($this->once())
+            ->method('render')
+            //->with($this->equalTo('Emails/dueDateChart.html.twig'), $options);
+            ->willReturn('template Content');
+        $templating->expects($this->once())->method('send');
+
+        $o = new \AppBundle\Service\TaskService($em, $mailer, $templating);
+        $o->nextWeekReport($start, $end, $includeHours);
+
+
+
+    }
+    }
 }

@@ -10,12 +10,14 @@ class TaskService
     private $entityManager;
     private $mailer;
     private $templating;
+    private $logger;
 
-    public function __construct(EntityManager $entityManager, $mailer, $templating)
+    public function __construct(EntityManager $entityManager, $mailer, $templating, $logger = null)
     {
         $this->entityManager = $entityManager;
         $this->mailer = $mailer;
         $this->templating = $templating;
+        $this->logger = $logger ?: new PSR\NullLogger();
     }
 
     public function nextWeekReport(DateTime $start, Datetime $end, $includeHours = false)
@@ -73,4 +75,12 @@ class TaskService
 
         $this->mailer->send($message);
     }
+
+    public function tx()
+    {
+        $this->entityManager->transactional(function ($entityManager) {
+        });
+    }
+
+    public function send($subject, $template, array $variables, array $recipients);
 }
