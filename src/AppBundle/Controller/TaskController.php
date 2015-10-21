@@ -5,31 +5,36 @@ namespace AppBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\Task;
+use AppBundle\Form\TaskType;
 
-class TaskController extends Controller
+use QafooLabs\MVC\FormRequest;
+use QafooLabs\MVC\RedirectRoute;
+
+class TaskController
 {
-    public function newAction(Request $request)
+    private $entityManager;
+
+    public function __construct(EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+
+    }
+    public function newAction(FormRequest $request)
     {
         $task = new Task();
 
-        $form = $this->createFormBuilder($task)
-            ->add('task', 'text')
-            ->add('dueDate', 'date')
-            ->add('save', 'submit', array('label' => 'Create Task'))
-            ->getForm();
+        if ($request->handle(new TaskType, $task)) {
+            $task = $request->getData();
 
-        $form->handleRequest($request);
+            $this->entityManager->persist($task);
+            $this->entityManager->flush();
 
-        if ($form->isValid()) {
-            $entityManager = $this->get('doctrine.orm.default_entity_manager');
-            $entityManager->persist($task);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('task_new', ['id' => $task->id]);
+            return new RedirectRoute('task_new', ['id' => $task->id]);
         }
 
-        return $this->render('default/new.html.twig', array(
-            'form' => $form->createView(),
+        return new TemplateView(
+            'default/new.html.twig', array(
+            'form' => $request->createFormView(),
         ));
     }
 }

@@ -18,7 +18,8 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
         "phpunit/phpunit": "^5.0",
-        "phake/phake": "^2.1"
+        "phake/phake": "^2.1",
+        "qafoolabs/no-framework-bundle": "^2.3"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

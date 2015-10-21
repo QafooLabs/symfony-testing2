@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dbbac29191b5b61541247e0b4802d22c",
-    "content-hash": "baa4ee9d2b4f160b7328ada1fefd6224",
+    "hash": "f06b533843a6b28d553edb454e7f21cc",
+    "content-hash": "7af00f99a76d7922f8ae47ec4ccc1ce0",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1640,6 +1640,59 @@
                 "psr-3"
             ],
             "time": "2012-12-21 11:40:51"
+        },
+        {
+            "name": "qafoolabs/no-framework-bundle",
+            "version": "v2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/QafooLabs/QafooLabsNoFrameworkBundle.git",
+                "reference": "9e1688bd56ef0db080bcce3aead3ecb22c8d1169"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/QafooLabs/QafooLabsNoFrameworkBundle/zipball/9e1688bd56ef0db080bcce3aead3ecb22c8d1169",
+                "reference": "9e1688bd56ef0db080bcce3aead3ecb22c8d1169",
+                "shasum": ""
+            },
+            "require-dev": {
+                "jms/serializer": "@stable",
+                "phake/phake": "@stable",
+                "sensio/framework-extra-bundle": "~3.0",
+                "symfony/form": "@stable",
+                "symfony/framework-bundle": "~2.1"
+            },
+            "suggest": {
+                "sensio/framework-extra-bundle": "~3.0 required",
+                "symfony/framework-bundle": "~2.1 required"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "QafooLabs\\Bundle\\NoFrameworkBundle\\": "src/",
+                    "QafooLabs\\MVC\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Manuel Pichler",
+                    "email": "manuel@qafoo.com"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "benjamin@qafoo.com"
+                }
+            ],
+            "description": "Various improvements for Symfony applications",
+            "keywords": [
+                "bundle",
+                "symfony"
+            ],
+            "time": "2015-02-08 10:12:35"
         },
         {
             "name": "sebastian/comparator",
